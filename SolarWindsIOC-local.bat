@@ -1,3 +1,7 @@
+:: Many thanks to Fireye for thier yara rules, Virus total for their yara64.exe, and all the analyst involved!  we thank you!! 
+:: this tool is brought to you by Stetson Cybergroup.   www.stetsoncg.com
+
+
 @ Echo OFF
 
 color 0A
