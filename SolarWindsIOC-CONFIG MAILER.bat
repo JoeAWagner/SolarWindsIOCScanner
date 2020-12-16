@@ -27,24 +27,29 @@ Powershell -Command "Get-ChildItem -Recurse -filter *.* 'C:\Program Files (x86)'
 echo. Testing to see if there are warnings..
 setlocal
 set file=Warnings.txt
-set maxbytesize=1000
+set maxbytesize=10
 
 call :setsize %file%
 
 if %size% lss %maxbytesize% (
-    goto :eof
+    goto cleanup
 ) else (
+	echo. Saving logs to temp folder and opening... 
+	COPY "Warnings.txt" "c:\temp\SWIOC-%COMPUTERNAME%-Warnings.txt"
+	echo.
+	echo. Results saved in "c:\temp\SWIOC-%COMPUTERNAME%-Warnings.txt"
     echo. Sending Logs Out 
 	Powershell.exe -executionpolicy remotesigned -File SolarWindsIOCMailer.ps1
+	goto cleanup
 )
-goto :eof
+
 
 :setsize
 set size=%~z1
 goto :eof
-
-
-
+:cleanup
+cd c:\temp
+RD /S /Q c:\SolarWindsIOC-%computername%\
 
 exit
 :: this is where you configure your mail server to send out the email 
