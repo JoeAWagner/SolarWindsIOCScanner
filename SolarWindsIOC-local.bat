@@ -6,7 +6,7 @@
 
 color 0A
 
-for /f "delims=: tokens=*" %%A in ('findstr /b ::::::::::: "%~f0"') do @echo(%%A)
+for /f "delims=: tokens=*" %%A in ('findstr /b ::::::::::: "%~f0"') do @echo(%%A
 
 powershell "md -Force c:\SolarWindsIOC-%computername%\ | Out-Null"
 powershell "md -Force c:\temp | Out-Null"
