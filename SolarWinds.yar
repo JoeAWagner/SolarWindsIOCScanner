@@ -126,21 +126,7 @@ rule APT_Dropper_Win64_TEARDROP_2
     condition:
         (uint16(0) == 0x5A4D and uint32(uint32(0x3C)) == 0x00004550) and any of them
 }
-rule SUSP_Solarwinds_SUNBURST_Revoked_Cert {
-   meta:
-      description = "Detects executables signed with a compromised certificate after 2019 (it doesn't mean that the "
-      date = "2020-12-14"
-      reference = "https://github.com/fireeye/sunburst_countermeasures/pull/3#issuecomment-747156202"
-      score = 50
-   condition:
-      uint16(0) == 0x5a4d and
-      for any i in (0 .. pe.number_of_signatures) : (
-         pe.signatures[i].issuer contains "Symantec Class 3 SHA256 Code Signing CA" and
-         pe.signatures[i].serial == "0f:e9:73:75:20:22:a6:06:ad:f2:a3:6e:34:5d:c0:ed" and
-         // valid after Tuesday, January 1, 2019 0:00:00
-         pe.signatures[i].not_before > 1546300800
-      )
-}
+
 
 rule APT_SUSP_Solarwinds_Orion_Config_Anomaly_Dec20 {
    meta:
